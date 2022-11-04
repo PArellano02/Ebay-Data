@@ -113,27 +113,25 @@ for page_number in range(1,int(args.num_pages)+ 1):
         item= {'name':name , 'price': price , 'shipping' : shipping, 'free_returns' : freereturns,'items_sold': items_sold , 'item_status' : item_status }
         items.append(item)
 
-
-
-for item in items:
-    print('item=', item )
-print('len(items)=',len(items))
+print ('items=',items)
 
 
 if args.csv:
     csv_filename = args.search_term+ '.csv'
-    file = open(csv_filename, 'w',  encoding= 'ascii')
+    file = open(csv_filename, 'w',  encoding= 'utf-8')
     with file:
 
-        header = items[0].key()
+        header = items[0].keys()
         writer = csv.DictWriter(file, fieldnames= header)
         writer.writeheader()
         for item in items:
             writer.writerow(item)
 else:
     filename = args.search_term+'.json'
-    # with open(filename, 'w' , encoding = 'ascii') as f:
-    #     f.write(json.dump(items))
+    with open(filename, 'w' , encoding = 'utf-8') as f:
+        f.write(json.dumps(items))
+
+
 
 
 
